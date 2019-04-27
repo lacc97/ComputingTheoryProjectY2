@@ -2,6 +2,8 @@
 
 #include <cmath>
 
+#include <fstream>
+
 #include "matplotlib.hpp"
 
 #include "constants.hpp"
@@ -243,28 +245,17 @@ int main() {
             timer.pause();
 
             plt::named_plot(format("K0 = %d MeV", jj), tab.col(2), tab.col(1));
+
+            std::ofstream(format("ns_mri_(C1_0.2)_k0_%d.dat", jj)) << tab;
         }
 
         timer.stop();
         timer.report();
 
-//         std::cout << tab << std::endl;
-
-
         plt::xlabel("Radius (km)");
         plt::ylabel("Mass (solar masses)");
         plt::legend();
         plt::save(pref + "_mass_v_radius_k0.pdf");
-
-        plt::clf();
-
-//        plt::plot((tab.col(0).log10()).eval(), tab.col(2));
-//        plt::save(pref + "_radius_v_rhoi.pdf");
-//
-//        plt::clf();
-//
-//        plt::plot((tab.col(0).log10()).eval(), tab.col(1));
-//        plt::save(pref + "_mass_v_rhoi.pdf");
     }
 
     plt::clf();
@@ -304,7 +295,9 @@ int main() {
 
             timer.pause();
 
-            plt::named_plot(format("C1 = %Lf", jj), tab.col(2), tab.col(1));
+            plt::named_plot("C1 = " + to_string(jj), tab.col(2), tab.col(1));
+
+            std::ofstream("ns_mri_(K0_220_MeV)_C1_" + to_string(jj) + ".dat") << tab;
         }
 
         timer.stop();
