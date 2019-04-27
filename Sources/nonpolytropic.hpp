@@ -82,7 +82,7 @@ namespace NeutronStar {
 
             constexpr long double eta = N0 / n0;
             const long double cbrt_eta = math::cbrt(eta);
-            const long double e_N = 3*cbrt_eta*cbrt_eta/(10*std::cbrt(4));
+            const long double e_N = 3*cbrt_eta*cbrt_eta/10;
             const long double E_N = e_N * SI::C_NUCLEON_MASS * SI::C_C * SI::C_C;
 
             Func F{tF};
