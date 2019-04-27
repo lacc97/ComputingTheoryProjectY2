@@ -278,7 +278,7 @@ inline void backend(const std::string& name)
     detail::s_backend = name;
 }
 
-inline void init(const std::string& backendName = QT5_BACKEND) {
+inline void init(const std::string& backendName = TK_BACKEND) {
     backend(backendName);
     detail::_interpreter::get();
 }
