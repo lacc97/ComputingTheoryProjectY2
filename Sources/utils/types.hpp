@@ -17,18 +17,18 @@
 // typedef boost::multiprecision::mpf_float_100 real_t;
 // // #else
 //// high precision   (for actual results)
-typedef __int128            sint_t;
-typedef unsigned __int128   uint_t;
-typedef long double         real_t;
-//
+//typedef __int128            sint_t;
+//typedef unsigned __int128   uint_t;
+//typedef long double         real_t;
+////
 //std::ostream& operator<<(std::ostream& dest, __int128);
 //std::ostream& operator<<(std::ostream& dest, unsigned __int128);
 // // #endif
 // // #else
 //// low precision   (for quick prototyping and testing)
-//typedef int64_t sint_t;
-//typedef uint64_t uint_t;
-//typedef double real_t;
+typedef int64_t sint_t;
+typedef uint64_t uint_t;
+typedef double real_t;
 // // #endif
 
 typedef std::complex<real_t> cplx_t;
