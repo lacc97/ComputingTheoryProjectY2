@@ -1,0 +1,85 @@
+\documentclass[11pt]{article}
+% Setting the margin
+\usepackage[top=2.54cm, bottom=2.54cm, left=2.75cm, right=2.75cm]{geometry}
+\usepackage{graphicx}
+% Citation style
+\usepackage{cite}
+\newcommand{\citet}{\cite}
+\bibliographystyle{ieeetr}
+% Spacing between the lines
+\linespread{1.2}
+% No indentation at the start of paragraph
+\setlength{\parindent}{0cm}
+% Graphics
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{float}
+
+\begin{document}
+
+
+% The title page comes here
+\begin{titlepage}
+\begin{center}
+{\Huge The effect of nuclear interaction on maximum Neutron Star mass and radius (subject to change)  }\\[0.5cm]
+\textit{Luis Caceres Cueva} and \textit{Tomoi Goto}~\\[0.3cm]
+\textit{student number one} and \textit{10139083}~\\[0.3cm]
+School of Physics and Astronomy~\\[0.3cm]
+University of Manchester~\\[0.3cm]
+Theroy computing project report~\\[0.3cm]
+May 2019~\\[2cm]
+
+\end{center}
+% Abstract comes here
+{\Large \textbf{Abstract}}~\\[0.3cm]
+In this project, the effects of the internal structure of the neutron stars on their maximum radius and mass were examined by solving the Tolman-Oppenheimer-Volkoff equation with appropriate equation of states using 4th order Runge-Kutta method. For the equation of state, pure Fermi gas consisting of proton and neutron was used, and different strength of nuclear interactions were considered by varying the nuclear incompressibility. [Results comes here].
+\end{titlepage}
+\pagenumbering{gobble}
+\clearpage
+\pagenumbering{arabic}
+\setcounter{page}{2}
+
+\newpage
+
+% Introduction
+\section{Introduction}
+[What's neutron star]. 
+[Why solve eos? (Because can test nuclear physics by comparing to actual observation)].
+\label{intro}
+
+
+% Theory
+\section{Theory}
+
+% subsection 1
+\subsection{Structure Equation }
+[Structure equation]. [General relativistic modification]. 
+% subsection 2
+\subsection{Equation of state}
+[Equation of state]. [Fermi gas]. [Nuclear interaction].
+% subsection 3
+\subsection{Observation method}
+[Methods to determine the mass and radius of neutron stars].
+
+% Apparatus
+\section{Method}
+[Python, C++, used RK4 with parameter of ~].
+
+
+% Result
+\section{Results}
+[Show Radius vs Pressure/Mass diagram]. [Show Mass vs Radius diagram]. []
+
+% Discussion
+\section{Discussion}
+[Say the effect of nuclear interaction on the mass and radius]. [Compare the result with other models using diagram]. [Pick few models and explain a bit deeper, why they have their distinct shapes].
+
+% Conclusion
+\section{Conclusion}
+
+% Bibliography
+%\bibliography{reference}
+
+
+
+\end{document}

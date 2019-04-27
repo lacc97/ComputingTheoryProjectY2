@@ -1,0 +1,45 @@
+find_package(PkgConfig REQUIRED)
+    pkg_search_module(SDL2      REQUIRED sdl2)
+    set(SDL2PP_DEP_INCLUDE_DIRS ${SDL2_INCLUDE_DIRS})
+    set(SDL2PP_DEP_LIBRARIES ${SDL2_LIBRARIES})
+if(ENABLE_SDL2_GFX)
+    pkg_search_module(SDL2_GFX  REQUIRED SDL2_gfx)
+    set(SDL2PP_DEP_INCLUDE_DIRS ${SDL2PP_DEP_INCLUDE_DIRS} ${SDL2_GFX_INCLUDE_DIRS})
+    set(SDL2PP_DEP_LIBRARIES ${SDL2PP_DEP_LIBRARIES} ${SDL2_GFX_LIBRARIES})
+endif(ENABLE_SDL2_GFX)
+if(ENABLE_SDL2_IMAGE)
+    pkg_search_module(SDL2_IMAGE  REQUIRED SDL2_image)
+    set(SDL2PP_DEP_INCLUDE_DIRS ${SDL2PP_DEP_INCLUDE_DIRS} ${SDL2_IMAGE_INCLUDE_DIRS})
+    set(SDL2PP_DEP_LIBRARIES ${SDL2PP_DEP_LIBRARIES} ${SDL2_IMAGE_LIBRARIES})
+endif(ENABLE_SDL2_IMAGE)
+if(ENABLE_SDL2_TTF)
+    pkg_search_module(SDL2_TTF  REQUIRED SDL2_ttf)
+    set(SDL2PP_DEP_INCLUDE_DIRS ${SDL2PP_DEP_INCLUDE_DIRS} ${SDL2_TTF_INCLUDE_DIRS})
+    set(SDL2PP_DEP_LIBRARIES ${SDL2PP_DEP_LIBRARIES} ${SDL2_TTF_LIBRARIES})
+endif(ENABLE_SDL2_TTF)
+
+add_library(sdl2pp STATIC
+        exception.cpp)
+    target_include_directories(sdl2pp
+        PUBLIC ${SDL2PP_DEP_INCLUDE_DIRS})
+    target_link_libraries(sdl2pp ${SDL2PP_DEP_LIBRARIES})
+    
+if(ENABLE_SDL2_GFX)
+    target_compile_definitions(sdl2pp PUBLIC ENABLE_SDL2_GFX)
+endif(ENABLE_SDL2_GFX)
+
+if(ENABLE_SDL2_IMAGE)
+    target_compile_definitions(sdl2pp PUBLIC ENABLE_SDL2_IMAGE)
+endif(ENABLE_SDL2_IMAGE)
+
+if(ENABLE_SDL2_TTF)
+    target_compile_definitions(sdl2pp PUBLIC ENABLE_SDL2_TTF)
+endif(ENABLE_SDL2_TTF)
+
+if(ENABLE_SDL2_VULKAN)
+    target_compile_definitions(sdl2pp PUBLIC ENABLE_SDL2_VULKAN)
+endif(ENABLE_SDL2_VULKAN)
+
+if(ENABLE_SDL2_OPENGL)
+    target_compile_definitions(sdl2pp PUBLIC ENABLE_SDL2_OPENGL)
+endif(ENABLE_SDL2_OPENGL)

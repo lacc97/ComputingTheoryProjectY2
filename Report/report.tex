@@ -1,0 +1,131 @@
+\documentclass[11pt]{article}
+
+%packages
+\usepackage[british]{babel}
+\usepackage{mathtools}              % AMS Math Package
+\usepackage{amsthm}                 % Theorem Formatting
+\usepackage{physics}
+\usepackage{graphicx}               % Allows for eps images
+% \usepackage{multicol}             % Allows for multiple columns
+% \usepackage{sectsty}                % custom sectionals
+\usepackage{titlesec}
+\usepackage[small]{caption}         % small captions
+% \usepackage{newtxtext,newtxmath}    % font change
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{csquotes}
+\usepackage{enumerate}              % custom enumerations
+\usepackage{url}                    % nice url fonts
+\usepackage[a4paper,top=2.54cm,bottom=2.54cm,left=3.18cm,right=3.18cm]{geometry}
+\usepackage[separate-uncertainty=true]{siunitx}
+\usepackage{float}
+\usepackage[style=ieee,backend=biber]{biblatex}
+\usepackage{tikz}
+\usepackage{parskip}
+\usepackage{booktabs}
+\usepackage{multirow}
+%end packages
+
+\usepackage{subcaption}
+
+%commands
+\renewcommand{\labelenumi}{(\alph{enumi})}
+\newtheorem{prop}{Proposition}
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lem}[thm]{Lemma}
+\theoremstyle{definition}
+\newtheorem{dfn}{Definition}
+\theoremstyle{remark}
+\newtheorem*{rmk}{Remark}
+
+\titlelabel{\thetitle.\quad}
+
+\titleformat*{\section}{\normalfont\bfseries}
+\titlespacing*{\section}{0pt}{1.1\parskip}{.33\parskip}
+\titleformat*{\subsection}{\normalfont\bfseries}
+\titlespacing*{\subsection}{0pt}{1.1\parskip}{.33\parskip}
+\titleformat*{\subsubsection}{\normalfont\bfseries}
+\titlespacing*{\subsubsection}{0pt}{1.1\parskip}{.33\parskip}
+
+\let\oldvec=\vec
+\renewcommand{\vec}[1]{\vb{#1}}
+\newcommand{\uvec}[1]{\vu{#1}}
+
+%cover page command
+\newcommand{\makecover}[5]{
+\thispagestyle{empty}
+\setcounter{page}{0}
+\begin{center}\LARGE{\bf #1}\vskip 24pt \normalsize{#2}\hspace*{\fill}\\
+#3\vskip 12pt School of Physics and Astronomy\\The University of Manchester\vskip 12pt Theory Computing Project Report\vskip 12pt #4\end{center}\vskip 54pt
+
+\section*{Abstract}
+#5
+\newpage}
+%end of coverpage command
+
+\pagestyle{plain}%page numbers in footer
+
+\begin{document}
+    \makecover
+    {Neutron stars}
+    {Tomoi Goto and Luis Caceres Cueva}
+    {10139083 and 9916879}
+    {May 2019}
+    {In this project, the effects of the internal structure of the neutron stars on their maximum radius and mass were examined by solving the Tolman-Oppenheimer-Volkoff equation with appropriate equation of states using 4th order Runge-Kutta method. For the equation of state, pure Fermi gas consisting of proton and neutron was used, and different strength of nuclear interactions were considered by varying the nuclear incompressibility. [Results comes here].}
+    
+    \section{Introduction}
+        [What's neutron star]. [Why solve eos? (Because can test nuclear physics by comparing to actual observation)].
+    
+    \section{Theory}
+        \subsection{Structure equation}
+            For a fluid in hydrostatic equilibrium, we have \[\rho\vec{f}=\grad{p},\] where $\rho$ is the density, $\vec{f}$ is the force per unit mass and $p$ is the pressure. Hence, when the force is Newtonian gravity, \[\dv{p}{r}=-\frac{G\rho M}{r^{2}},\] where $r$ is the distance from the center of the neutron star, $p=p(r)$ is the pressure at radius $r$, $\rho=\rho(r)$ is the density at radius $r$, $M=M(r)$ is the mass of the inner shell of radius $r$ and $G$ is the gravitational constant. In a general relativistic treatment, this equation is corrected by some factors, and hence we obtain Equation \ref{eq/tov.pressure},
+            \begin{align}
+                \label{eq/tov.pressure}\dv{p}{r}&=-\frac{G\rho M}{r^{2}}\qty[1+\frac{p}{\epsilon}]\qty[1+\frac{4\pi r^{3}p}{Mc^{2}}]\qty[1-\frac{2GM}{c^{2}r}]^{-1}\\
+                \label{eq/tov.mass}\dv{M}{r}&=4\pi r^{2}\rho,
+            \end{align}
+            where $\epsilon=\epsilon(r)$ is the energy density at radius $r$ and $c$ is the speed of light. Equation \ref{eq/tov.mass} is straightforward from the definition of the mass of an inner spherical shell.
+
+            
+        \subsection{Fermi gas model} % TODO cite pdf and koonin
+        
+            \[\epsilon=2\int_{0}^{k_{F}}E(k)g(k)\dd{k},\] where $g(k)=k^{2}/2\pi^{2}$ is the density of states function, and $E(k)=\sqrt{\hbar^{2}c^{2}k^{2}+m^{2}c^{4}}$ is the relativistic energy of the state with wavenumber $k$. With the substitution $y=\hbar k/mc$ and defining a function \[I(x)\equiv \frac{3}{8x^{3}}\qty[x(1+2x^{2})(1+x^{2})^{1/2}-\log(x+\sqrt{1+x^{2}})]\] in terms of dimensionless $x=\hbar k_{F}/mc$ to simplify the notation, the energy density can be written as \[\epsilon=\epsilon_{0}x^{3}I(x),\] where $\epsilon_{0}=m^{4}c^{5}/\pi^{2}\hbar^{3}$ is a constant.
+            
+            Calculating the number density is simpler, \[n=2\int_{0}^{k_{F}}g(k)\dd{k}=\frac{k_{F}^{3}}{3\pi^{2}}=n_{0}x^{3},\] where $n_{0}=mww^{3}c^{3}/3\pi^{2}\hbar^{3}$ is a constant. Hence, calculating the mass density is straightforward, \[\rho=mn_{0}x^{3}=\rho_{0}x^{3},\] where $\rho_{0}=mn_{0}$ is another constant.
+            
+            In summary, we have the following quantities in terms of dimensionless $x$ (which in turn is a function of the Fermi wavenumber $k_{F}$):
+                \begin{align}
+                    x&=\frac{\hbar k_{F}}{mc}\\
+                    n&=n_{0}x^{3},\\
+                    \rho&=\rho_{0}x^{3},\\
+                    \epsilon&=\epsilon_{0}x^{3}I(x).
+                \end{align}
+                
+            
+
+        
+        \subsection{Fermi gas with nucleon interactions} % TODO cite pdf, PAL and Bludman-Dover
+            In general, we can write that the energy per nucleon for symmetric matter (i.e. number of protons equal to the number of neutrons) is given by \[\frac{\epsilon(n)}{n}=mc^{2}I(x)+V(u)\] where $x=\sqrt[3]{n/n_{0}}$ is as in the previous section, $V(u)$ is the nucleon-nucleon interaction potential written in terms of the dimensionless quantity $u=n/n_{1}$, where $m$ is the mass of a nucleon (i.e. we ignore the small difference between the proton and neutron mass), $n_{1}$ is the equilibrium density (i.e. the density at which the potential $V$ is the minimum and is equal to the binding energy per nucleon). We also make the assumption that this potential applies to all neutron stars. % TODO explain this
+            
+            For small $x$, we can approximate $I(x)$ as \[I(x)\approx1+\frac{3}{10}x^{2}.\] Writing $x^{3}=\eta u$, where $\eta=n_{1}/n_{0}$ is the ratio between constants, we have \[\frac{\epsilon(n)}{n}=mc^{2}(1+\frac{3\eta^{2/3}}{10}u^{2/3})+V(u).\] % TODO explainl why we can use non relativistic approximation
+            
+            \subsubsection{The symmetric nucleon-nucleon potential} % TODO cite PAL and Bludman-Dover
+            
+        \subsection{Observation method}
+            [Methods to determine the mass and radius of neutron stars].
+    
+    \section{Methodology}
+        [Python, C++, used RK4 with parameter of ].
+    
+    \section{Results and discussion}
+        [Show Radius vs Pressure/Mass diagram]. [Show Mass vs Radius diagram]. []
+        
+        [Say the effect of nuclear interaction on the mass and radius]. [Compare the result with other models using diagram]. [Pick few models and explain a bit deeper, why they have their distinct shapes].
+        
+        \subsection{Error}
+            [Explain and justify sources of error].
+    
+    \section{Conclusion}
+    
+    \printbibliography
+\end{document}
