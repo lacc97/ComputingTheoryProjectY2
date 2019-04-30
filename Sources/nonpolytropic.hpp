@@ -200,7 +200,7 @@ namespace NeutronStar {
 
             constexpr long double eta = N0 / n0;
             const long double cbrt_eta = math::cbrt(eta);
-            const long double e_N = 3*cbrt_eta*cbrt_eta/(10*std::cbrt(4));
+            const long double e_N = 3*cbrt_eta*cbrt_eta/10;
             const long double E_N = e_N * SI::C_NUCLEON_MASS * SI::C_C * SI::C_C;
 
             Func F{tF};
@@ -270,7 +270,7 @@ namespace NeutronStar {
                 const real_t V = u*(A/2+B*u_sigma/((1+sigma)*u_plus_C1_u_sigma));
                 const real_t Vp = A/2+(B*u_sigma*(C1*u_sigma + u*sigma))/((1+sigma)*u_plus_C1_u_sigma__2);
                 const real_t Vpp = -(B*u_sigma*(sigma-1)*(C1*u_sigma*(sigma-2)-u*sigma))/((sigma + 1)*u_plus_C1_u_sigma__2*u_plus_C1_u_sigma);
-
+                
                 const real_t tJ1 = 2*cbrt_1_u/3 + Vp + ((cbrt_2_2 - 1)*(2*cbrt_1_u/3 - dFu)+S0*dFu/E_N);
                 const real_t J = u_2*tJ1;
                 const real_t Jp = 2*u*tJ1 + u_2*(-2*cbrt_1_u_4/9 + Vpp + ((cbrt_2_2 - 1)*(-2*cbrt_1_u_4/9 - d2Fu)+S0*d2Fu/E_N));
