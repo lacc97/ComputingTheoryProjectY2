@@ -163,7 +163,7 @@ int main() {
 
     plt::clf();
 
-    if(/* DISABLES CODE */ (true)) {
+    if(/* DISABLES CODE */ (false)) {
 //        const std::string pref = "nw";
         const std::string pref = "gr";
 //        const std::string pref = "nn";
@@ -205,6 +205,126 @@ int main() {
         plt::xlabel("Radius (km)");
         plt::ylabel("Mass (solar masses)");
         plt::save(pref + "_mass_v_radius.pdf");
+    }
+
+    plt::clf();
+
+    if(/* DISABLES CODE */ (true)) {
+        const std::string pref = "nw";
+//        const std::string pref = "gr";
+//        const std::string pref = "nn";
+
+        constexpr uint_t N_STEPS = 200000;
+        constexpr uint_t N_STARS = 200;
+        constexpr real_t MIN_RHO = 1e17;
+        constexpr real_t MAX_RHO = 5e20;
+
+        plt::title("Mass vs radius of neutron stars (Newtonian structure)");
+
+        HRTimer timer("Neutron star (Newtonian structure)");
+
+
+        rmdata_t tab(N_STARS, 3);
+
+        timer.start();
+#pragma omp parallel for
+
+        for(uint32_t ii = 0; ii < N_STARS; ii++) {
+            real_t rhoI = MIN_RHO * std::pow(10, ii * (std::log10(MAX_RHO / MIN_RHO)) / N_STARS);
+
+            auto data = ns::integrate(rhoI, 1000000, N_STEPS, ns::newtonianStructure());
+
+            uint_t dataSetSize = data.first.size();
+            tab(ii, 0) = rhoI;
+            tab(ii, 1) = (data.second[1][dataSetSize - 1] / C_SOLAR_MASS);
+            tab(ii, 2) = data.first[dataSetSize - 1] / 1000;
+        }
+
+        timer.pause();
+
+        plt::plot(tab.col(2), tab.col(1));
+
+        std::ofstream(pref + "_mri.dat") << tab;
+
+        timer.stop();
+        timer.report();
+
+//         std::cout << tab << std::endl;
+
+
+        plt::xlabel("Radius (km)");
+        plt::ylabel("Mass (solar masses)");
+        plt::save(pref + "_mass_v_radius.pdf");
+
+        plt::clf();
+
+//        plt::plot((tab.col(0).log10()).eval(), tab.col(2));
+//        plt::save(pref + "_radius_v_rhoi.pdf");
+//
+//        plt::clf();
+//
+//        plt::plot((tab.col(0).log10()).eval(), tab.col(1));
+//        plt::save(pref + "_mass_v_rhoi.pdf");
+    }
+
+    plt::clf();
+
+    if(/* DISABLES CODE */ (true)) {
+//        const std::string pref = "nw";
+        const std::string pref = "gr";
+//        const std::string pref = "nn";
+
+        constexpr uint_t N_STEPS = 200000;
+        constexpr uint_t N_STARS = 200;
+        constexpr real_t MIN_RHO = 1e17;
+        constexpr real_t MAX_RHO = 5e20;
+
+        plt::title("Mass vs radius of neutron stars (GR structure)");
+
+        HRTimer timer("Neutron star (GR structure)");
+
+
+        rmdata_t tab(N_STARS, 3);
+
+        timer.start();
+#pragma omp parallel for
+
+        for(uint32_t ii = 0; ii < N_STARS; ii++) {
+            real_t rhoI = MIN_RHO * std::pow(10, ii * (std::log10(MAX_RHO / MIN_RHO)) / N_STARS);
+
+            auto data = ns::integrate(rhoI, 1000000, N_STEPS, ns::grStructure());
+
+            uint_t dataSetSize = data.first.size();
+            tab(ii, 0) = rhoI;
+            tab(ii, 1) = (data.second[1][dataSetSize - 1] / C_SOLAR_MASS);
+            tab(ii, 2) = data.first[dataSetSize - 1] / 1000;
+        }
+
+        timer.pause();
+
+        plt::plot(tab.col(2), tab.col(1));
+
+        std::ofstream(pref + "_mri.dat") << tab;
+
+        timer.stop();
+        timer.report();
+
+//         std::cout << tab << std::endl;
+
+
+        plt::xlabel("Radius (km)");
+        plt::ylabel("Mass (solar masses)");
+        plt::save(pref + "_mass_v_radius.pdf");
+
+        plt::clf();
+
+//        plt::plot((tab.col(0).log10()).eval(), tab.col(2));
+//        plt::save(pref + "_radius_v_rhoi.pdf");
+//
+//        plt::clf();
+//
+//        plt::plot((tab.col(0).log10()).eval(), tab.col(1));
+//        plt::save(pref + "_mass_v_rhoi.pdf");
     }
 
     plt::clf();
