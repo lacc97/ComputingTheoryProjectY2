@@ -4,6 +4,9 @@
 # possible alternative: https://github.com/natlownes/docker-latex
 image: blang/latex
 
+before_script:
+  - apt-get install biber
+
 build:
   script:
     - cd Report/
