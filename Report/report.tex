@@ -142,7 +142,9 @@
             Other than the observations in the electromagnetic spectrum of LMXB, the advent of the gravitational wave detectors made it possible to measure the total mass of a system of 2 neutron stars and their radii by observing merging events. In particular, the  radii and masses of the neutron stars in the event GW170817 has been calculated by the LIGO Scientific Collaboration and Virgo Collaboration \cite{ligo.virgo.2019/prop.of.ns.merger.GW170817,ligo.virgo.2018/GW170817.ns.radii}. In this report we use the radius inferred from the effect of the tidal deformation of the neutron stars on the signal of the gravitational wave, as presented in the paper by LIGO \cite{ligo.virgo.2018/GW170817.ns.radii}. Since the upgrade in the sensitivity of the LIGO detector in the spring of 2019, it is expected to detect gravitatonal wave event more frequently, so we can expect that there will be more data available on the radii of neutron stars \cite{ligo.update.2019}. % TODO Move this sentence to conclusion maybe? - I agree
     
     \section{Methodology}
-        [Python, C++, used RK4 with parameter of ].
+        \subsection{Runge-Kutta integration}
+            The main source of error in the Runge-Kutta method is the truncation error, which can be estimated by performing integration on two different step sizes $h_1=2h$ and $h_2=h$, and using the results $Y_1$ and $Y_2$ in the formula  \parencite{Lotkin.1951/rk.accuracy} \[E_2=(Y_1-Y_2)/15\] where $E_2$ is the estimated error when the step size is $h_2$. In our case we performed first integration at a given step size, and then performed another integration with twice the step size to then calculate the error on mass $M_{\text{err}}$ when pressure $p$ reaches 0. After trying several step size with different EOS and intial pressure, we found that for the step size of $h=\SI{1}{\meter}$ the error on the mass $M_{\text{err}}$ stays in the range between \SI{e-10}{\solarmass} to \SI{e-5}{\solarmass}, much smaller than the calculated masses of the neutron stars which are around \SI{1}{\solarmass}, so this step size was chosen for calculating all the EOS.
+        
         \subsection{Polytropic method}
             One way to integrate the equation of states is to express them in polytropes of the form $\epsilon(p) = a_1 p^{\gamma_1} + a_2 p^{\gamma_2}$, where $\epsilon$ is the energy density, $p$ is the pressure, and the rest of $a_1$, $a_2$, $\gamma_1$, and $\gamma_2$ are the parameter that need to be fit. The merit of this method is that the only thing the integrating program needs to know are the four parameters which can be determined for each equation of states. We used the polytropic method for integrating the equation of states of Fermi gas without nuclear interaction.
 
@@ -168,9 +170,6 @@
         \subsection{Comparison with actual neutron star measurement data}
         
         [Say the effect of nuclear interaction on the mass and radius]. [Compare the result with other models using diagram]. [Pick few models and explain a bit deeper, why they have their distinct shapes].
-        
-        \subsection{Error}
-            The main soure of error of Runge-Kutta method is the truncation error, which can be estimated by performing integration on two different step size $h_1$ and $h_2$, and using the result $Y_1$ and $Y_2$ in the formula \begin{equation}E_2=(Y_1-Y_2)/15\end{equation} where $E_2$ is the estimated error when the step size is $h_2$ \cite{Lotkin.1951/rk.accuracy}. In our case we performed first integration at a given step size, and then performed another integration with twice the step size to then calculate the error on mass $M_err$ when pressure $p$ hits 0. After trying several step size with different EOS and intial pressure, we found that for the step size of $h=1m$ the error on the mass $M_err$ stays in the range between $10^{-10}$ to $10^{-5}$ $M_{\odot}$, much smaller than the calculated masses of the neutron stars which are around 1 $M_{\odot}$, so this step size was chosen for calculating all the EOS.
     
     \section{Conclusion}
     
