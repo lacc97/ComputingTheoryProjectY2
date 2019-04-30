@@ -1,4 +1,4 @@
-\documentclass[11pt]{article}
+\documentclass[draft,11pt]{article}
 
 %packages
 \usepackage[british]{babel}
@@ -158,6 +158,8 @@
             To perform the integration of the TOV equation (Equations \ref{eq/tov.pressure} and \ref{eq/tov.mass}), we would have to find an explicit expression for $\rho$ and $\epsilon$ in terms of pressure $p$. However, by inspecting Equation \ref{eq/fermi/pressure}, it is very difficult to do so even for the simpler Fermi gas model.
             
             Nonetheless, by inverting Equation \ref{eq/fermi/mass.density} to find an expression for $x$ in terms of the mass density $\rho$ we can therefore write all other relevant quantities as functions of the mass density. As such, it would be necessary to rewrite the TOV equation in terms of $\rho$. This is straightforward with the chain rule and thus we can write \begin{equation}\label{eq/tov.density}\dv{\rho}{r}=-\qty(\dv{p}{x})^{-1}\qty(\dv{\rho}{x})\frac{G\rho M}{r^{2}}\qty[1+\frac{p}{\epsilon}]\qty[1+\frac{4\pi r^{3}p}{Mc^{2}}]\qty[1-\frac{2GM}{c^{2}r}]^{-1}\end{equation} where the derivatives in terms of $x$ are calculated according the specific model used (Fermi gas or with nucleon interactions).
+            
+        \subsection{Choice of free parameters and functions in the nucleon interaction EOS}
     
     \section{Results and discussion}
         \subsection{Comparison between Fermi gas model and nucleon interaction model}
