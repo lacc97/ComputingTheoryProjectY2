@@ -276,7 +276,7 @@ int main() {
 
         constexpr uint_t N_STEPS = 200000;
         constexpr uint_t N_STARS = 200;
-        constexpr real_t MIN_RHO = 1e17;
+        constexpr real_t MIN_RHO = 1e16;
         constexpr real_t MAX_RHO = 5e20;
 
         plt::title("Mass vs radius of neutron stars (GR structure)");
