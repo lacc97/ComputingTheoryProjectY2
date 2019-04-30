@@ -142,6 +142,18 @@
     
     \section{Methodology}
         [Python, C++, used RK4 with parameter of ].
+        \subsection{Polytropic method}
+            One way to integrate the equation of states is to express them in polytropes of the form $\epsilon(p) = a_1 p^{\gamma_1} + a_2 p^{\gamma_2}$, where $\epsilon$ is the energy density, $p$ is the pressure, and the rest of $a_1$, $a_2$, $\gamma_1$, and $\gamma_2$ are the parameter that need to be fit. The merit of this method is that the only thing the integrating program needs to know are the four parameters which can be determined for each equation of states. We used the polytropic method for integrating the equation of states of Fermi gas without nuclear interaction.
+
+
+            In order to deterrmine the four parameters in the case of pure Fermi gas model, firstly the energy density $\epsilon(k)$ and the pressure $p(k)$ as functions of momentum $k$ were calculated numerically for a given range. Then the calculated $\epsilon$ and $p$ were plotted against each other, and then we chose the $\gamma_1$ and $\gamma_2$ according to both the literature and trial and error to fit the $\epsilon$ as the function of $p$ to get the rest of the parameters $a_1$ and $a_2$. Finally, using the obtained parameters we integrated the structure equation with the polytropic equation of state to obtain the mass and radius of a neutron star with a given initial pressure.
+
+        \subsection{Tabulated equation of states}
+            The downside of the polytropic method is that when the shape of the $\epsilon$-$p$ curve becomes more complex, the polytropic fit would differ too much from the original equation of state. So, alternatively it is also possible to use a tabulated equation of states when integrating the structure equation. A table of $\epsilon$ and $p$ can be generated and then can be linearly interpolated to be used structure equation directly. There are tabulted equation of states available online for various models and parameters, and we integrated several of them to compare with our model in the result and discussion section \cite{arizona/eos.table}.
+
+        \subsection{}
+        [Luis's method]
+
     
     \section{Results and discussion}
         [Show Radius vs Pressure/Mass diagram]. [Show Mass vs Radius diagram]. []
