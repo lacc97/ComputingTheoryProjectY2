@@ -5,7 +5,7 @@
 image: blang/latex
 
 before_script:
-  - apt-get install biber
+  - apt-get update -qq && apt-get install -y -qq biber
 
 build:
   script:
