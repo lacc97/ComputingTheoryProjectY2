@@ -32,7 +32,7 @@ May 2019~\\[2cm]
 \end{center}
 % Abstract comes here
 {\Large \textbf{Abstract}}~\\[0.3cm]
-In this project, the effects of the internal structure of the neutron stars on their maximum radius and mass were examined by solving the Tolman-Oppenheimer-Volkoff equation with appropriate equation of states using 4th order Runge-Kutta method. For the equation of state, pure Fermi gas consisting of proton and neutron was used, and different strength of nuclear interactions were considered by varying the nuclear incompressibility. [Results comes here].
+In this project, the effects of the internal structure of the neutron stars on their maximum radius and mass were examined by solving the Tolman-Oppenheimer-Volkoff equation with appropriate equation of states using 4th order Runge-Kutta method. For the equation of state, pure Fermi gas consisting of proton and neutron was used, and different strength of nuclear interactions were considered by varying the nuclear incompressibility. The incompressibility of the nuclear matter resulted in neutron star being able to have larger mass without collapsing than pure Fermi gas.
 \end{titlepage}
 \pagenumbering{gobble}
 \clearpage
@@ -43,8 +43,9 @@ In this project, the effects of the internal structure of the neutron stars on t
 
 % Introduction
 \section{Introduction}
-[What's neutron star]. 
-[Why solve eos? (Because can test nuclear physics by comparing to actual observation)].
+Neutron stars, created by supernovae of <5 solar mass stars, have a mean density of around $10^{15} gcm^{-3}$ {shapiro.teukolsky.1983/bh.wd.ns.co}. Compared to high temperature but low density enviroment in the particle accelerators such as LHC in CERN, this highly dense but low temperature state of the matter inside the neutron star cannot be recreated in the laboratory on the Earth {graber.andersson.2017/ns.lab}. So the neutron star offers an opportunity for studying the equation of states at extremely high density, which have not been constrained yet and uncertaintly remains.  
+To further illustrate, there are multiple models for the equation of state of the matter, each consisiting of diffetent matters (eg. strange quark, hyperion etc) and varying strength of the internuclear interaction, which result in different mass-radius relation of the neutron star when calculated numerically {graber.andersson.2017/ns.lab}. So, by comparing the calculated mass-radius relation with the actual observation of the radii and masses of the neutron stars, one could restrict the models and its parameter to have a better idea of high density state of matters.
+In this report, we pursue the pure Fermi gas model with nuclear interaction with symmetric ennergy as the equation of state, and calculate its mass-radius relation at different strength of the nuclear interaction. Then we compare our result with other proposed equation of states and the actual observed mass and radii acquired from low mass X-ray binaries and the gravitational wave event GW170817 which was a neutron stars mergre.
 \label{intro}
 
 
@@ -58,27 +59,47 @@ In this project, the effects of the internal structure of the neutron stars on t
 \subsection{Equation of state}
 [Equation of state]. [Fermi gas]. [Nuclear interaction].
 % subsection 3
-\subsection{Observation method}
-[Methods to determine the mass and radius of neutron stars].
+\subsection{Observational methods}
+There are numbers of methods for measuring the mass of a neutron star, but the measurements of low-mass X-ray binaries are useful, since not only the mass but also the radius can be determined simultaneously [ozel.paulo.2016]. There are two methods for determining the radius of the neutron star in the LMXB, one is to measure the thermal emmision from a quiescent LMXB, and the other is to measure the flux produced by the thermonuclear bursts [ozel.paulo.2016]. 
+Low mass X-ray binaries have a donor star (M<1.5Msolar) that transfers materials to the neutron star, which results in an acretion disk around the neutron star [tauris.2003]. When the LMXB is in a quiescent period, the neutron emits thermal radiation due to the heating up from the accretion, and its spectrum can be analyzed to obtain the angular size of the neutron star, from which the radius can be determined [ozel.psaltis.2016].
+LMXB can also undergo thermonuclear bursts, which are caused by the ignition of helium on the surface of the neutron star due to the accretion [ozel.paulo.2016]. This results in the expansion of neutron star's photosphere due to the radiation pressure, which then is counter-balanced by the gravitation to finally reach the Eddington luminocity. As the burst cools down the photosphere shrinks and the Eddington luminocity decreases as well, and by measuring the flux when the photosphere touches the neutron star, the radius of the neutron star can be calculated using the expression for the Eddington luminocity [ozel.psaltis.2016].
+
+Other than the observations in the electromagnetic spectrum of LMXB, the advent of the gravitational wave detectors made it possible to measure the total mass of a system of 2 neutron stars and their radii by observing their mergre event. In particular, the  radii and masses of the neutron stars in the event GW170817 has been calculated by the LIGO Scientific Collaboration and Virgo Collaboration {ligo.virgo.2019/prop.of.ns.merger.GW170817} {ligo.virgo.2018/GW170817.ns.radii}. Since the upgrade in the sensitivity of the LIGO detector in the spring of 2019, it is expected to detect gravitatonal wave event more frequently, so we can expect that there will be more data availble on the radii of neutron stars {ligo.update.2019}.
 
 % Apparatus
 \section{Method}
 [Python, C++, used RK4 with parameter of ~].
+\subsection{Polytropic method}
+One way to integrate the equation of states is to express them in polytropes of the form $\epsilon(p) = a_1 p^{\gamma_1} + a_2 p^{\gamma_2}$, where $\epsilon$ is the energy density, $p$ is the pressure, and the rest of $a_1$, $a_2$, $\gamma_1$, and $\gamma_2$ are the parameter that need to be fit. The merit of this method is that the only thing the integrating program needs to know are the four parameters which can be determined for each equation of states. We used the polytropic method for integrating the equation of states of Fermi gas without nuclear interaction.
 
 
-% Result
-\section{Results}
-[Show Radius vs Pressure/Mass diagram]. [Show Mass vs Radius diagram]. []
+In order to deterrmine the four parameters in the case of pure Fermi gas model, firstly the energy density $\epsilon(k)$ and the pressure $p(k)$ as functions of momentum $k$ were calculated numerically for a given range. Then the calculated $\epsilon$ and $p$ were plotted against each other, and then we chose the $\gamma_1$ and $\gamma_2$ according to both the literature and trial and error to fit the $\epsilon$ as the function of $p$ to get the rest of the parameters $a_1$ and $a_2$. Finally, using the obtained parameters we integrated the structure equation with the polytropic equation of state to obtain the mass and radius of a neutron star with a given initial pressure.
 
-% Discussion
-\section{Discussion}
+        \subsection{Tabulated equation of states}
+            The downside of the polytropic method is that when the shape of the $\epsilon$-$p$ curve becomes more complex, the polytropic fit would differ too much from the original equation of state. So, alternatively it is also possible to use a tabulated equation of states when integrating the structure equation. A table of $\epsilon$ and $p$ can be generated and then can be linearly interpolated to be used structure equation directly. There are tabulted equation of states available online for various models and parameters, and we integrated several of them to compare with our model in the result and discussion section \cite{arizona/eos.table}.
+
+[Luis's method]
+
+
+
+
+
+% Result and discussion
+\section{Results/Discussion}
+[Show Radius vs Pressure/Mass diagram]. [Show Mass vs Radius diagram].
 [Say the effect of nuclear interaction on the mass and radius]. [Compare the result with other models using diagram]. [Pick few models and explain a bit deeper, why they have their distinct shapes].
+
+            We use one is from low mass X-ray binaries and other is from the gravitational event caused by the nuetron star mergre is used.
+
+
+        \subsection{Error}
+            The main soure of error of Runge-Kutta method is the truncation error, which can be estimated by performing integration on two different step size $h_1$ and $h_2$, and using the result $Y_1$ and $Y_2$ in the formula \begin{equation}E_2=(Y_1-Y_2)/15\end{equation} where $E_2$ is the estimated error when the step size is $h_2$ \cite{Lotkin.1951/rk.accuracy}. In our case we performed first integration at a given step size, and then performed another integration with twice the step size to then calculate the error on mass $M_err$ when pressure $p$ hits 0. After trying several step size with different EOS and intial pressure, we found that for the step size of $h=1m$ the error on the mass $M_err$ stays in the range between $10^{-10}$ to $10^{-5}$ Solar masses, so this step size was used for calculating all the EOS.
 
 % Conclusion
 \section{Conclusion}
 
 % Bibliography
-%\bibliography{reference}
+%\bibliography{report.bib}
 
 
 
