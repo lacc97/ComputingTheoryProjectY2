@@ -184,21 +184,22 @@
             
             Additionally, the simpler Fermi gas model produces less compact neutron stars compared to the model that accounts for nucleon interactions. This is as expected because the Fermi gas model only considers a repulsive interaction due to degeneracy pressure, while the other model includes the attractive strong interaction between neutrons.
             
-            \begin{table}
-            \begin{center}
-            \begin{tabular}{ |c|c|c|c|c|c| } 
-            \hline
-            $K_0(MeV)$ & 100 & 175 & 250 & 325& 400 \\ 
-            \hline
-            Maximum Mass ($M_{\odot}$) & 1.36 & 2.01 & 2.30 & 2.27 & 1.97 \\ 
-            \hline
-            \end{tabular}
-            \caption{Maximum masses of neutron stars for a given nuclear incompressibility $K_0$}\label{tab/max_mass}
-            \end{center}
-            \end{table}
-
+            \begin{table}[h]\begin{center}
+                \caption{Maximum masses and radii at maximum mass of neutron stars for a given nuclear incompressibility $K_0$}\label{tab/max.mass}
+                \begin{tabular}{ccc}
+                    \toprule
+                    $K_{0}$ (\si{\mega\electronvolt}) & $M_{\text{max}}$ (\si{\solarmass}) & $R_{\text{max}}$ (\si{\kilo\meter}) \\
+                    \midrule
+                    \num{100} & \num{1.36} & \num{6.78}\\
+                    \num{175} & \num{2.01} & \num{8.30}\\
+                    \num{250} & \num{2.30} & \num{9.25}\\
+                    \num{325} & \num{2.27} & \num{9.68}\\
+                    \num{400} & \num{1.97} & \num{9.80}\\
+                    \bottomrule
+                \end{tabular}
+            \end{center}\end{table}
             
-            The calculated maximum mass of the neutron stars for the nucleon interaction EOS are listed in the Table \ref{tab/max_mass}.
+            The calculated maximum mass of the neutron stars for the nucleon interaction EOS are listed in the Table \ref{tab/max.mass}.
         
         \subsection{Comparison with other EOS models from the literature}
             
