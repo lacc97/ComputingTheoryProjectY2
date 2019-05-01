@@ -51,13 +51,17 @@ int main() {
     };
 
 //    auto F = [](real_t u) -> real_t {
-//        return u*u;
+//        return 2*u*u/(1+u);
 //    };
 //    auto dF = [](real_t u) -> real_t {
-//        return 2*u;
+//        real_t u_p_1 = u+1;
+//
+//        return 2*u*(2+u)/(u_p_1*u_p_1);
 //    };
 //    auto d2F = [](real_t u) -> real_t {
-//        return 2;
+//        real_t u_p_1 = u+1;
+//
+//        return 2/(u_p_1*u_p_1*u_p_1);
 //    };
 
     if(/* DISABLES CODE */ (false)) {
@@ -354,7 +358,7 @@ int main() {
                 real_t rhoI = MIN_RHO * std::pow(10, ii * (std::log10(MAX_RHO / MIN_RHO)) / N_STARS);
 
                 auto data = ns::integrate(rhoI, 1000000, N_STEPS,
-                                          ns::nnInteractionStructure(jj * 1e6 * C_EV, 0.2, F, dF, d2F));
+                                          ns::nnInteractionStructure(jj * 1e6 * C_EV, 0.3, F, dF, d2F));
 
                 uint_t dataSetSize = data.first.size();
                 tab(ii, 0) = rhoI;
