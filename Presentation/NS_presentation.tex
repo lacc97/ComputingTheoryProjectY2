@@ -89,6 +89,19 @@
 \end{frame}
 
 \begin{frame}
+    \frametitle{Estimating the error of RK4 method}
+    \begin{itemize}
+     \item The main source of error is truncation error.
+    \end{itemize}
+    \begin{itemize}
+     \item It can be estimated by integrating at two different step sizes $h_{1}=2h$ and $h_{2}=h$, which result in $Y_{1}$ and $Y_{2}$
+    \end{itemize}
+    \begin{itemize}
+     \item From these, the error on $Y_{2}$ at step size $h_{2}=h$ is \[E_{2}=(Y_{1}-Y_{2})/15.\]
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
  \frametitle{Comparison between our models}
  \begin{figure}
     \includegraphics[scale=0.3]{eos_compare_our_model.pdf}
