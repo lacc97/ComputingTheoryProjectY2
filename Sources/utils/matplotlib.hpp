@@ -58,6 +58,8 @@ struct _interpreter {
     PyObject *s_python_function_axis;
     PyObject *s_python_function_xlabel;
     PyObject *s_python_function_ylabel;
+    PyObject *s_python_function_xscale;
+    PyObject *s_python_function_yscale;
     PyObject *s_python_function_xticks;
     PyObject *s_python_function_yticks;
     PyObject *s_python_function_grid;
@@ -171,6 +173,8 @@ private:
         s_python_function_axis = PyObject_GetAttrString(pymod, "axis");
         s_python_function_xlabel = PyObject_GetAttrString(pymod, "xlabel");
         s_python_function_ylabel = PyObject_GetAttrString(pymod, "ylabel");
+        s_python_function_xscale = PyObject_GetAttrString(pymod, "xscale");
+        s_python_function_yscale = PyObject_GetAttrString(pymod, "yscale");
         s_python_function_xticks = PyObject_GetAttrString(pymod, "xticks");
         s_python_function_yticks = PyObject_GetAttrString(pymod, "yticks");
         s_python_function_grid = PyObject_GetAttrString(pymod, "grid");
@@ -1355,6 +1359,32 @@ inline void ylabel(const std::string &str)
     Py_DECREF(args);
     Py_DECREF(res);
 }
+
+    inline void xscale(const std::string &str)
+    {
+        PyObject* pystr = PyString_FromString(str.c_str());
+        PyObject* args = PyTuple_New(1);
+        PyTuple_SetItem(args, 0, pystr);
+
+        PyObject* res = PyObject_CallObject(detail::_interpreter::get().s_python_function_xscale, args);
+        if(!res) throw std::runtime_error("Call to xscale() failed.");
+
+        Py_DECREF(args);
+        Py_DECREF(res);
+    }
+
+    inline void yscale(const std::string &str)
+    {
+        PyObject* pystr = PyString_FromString(str.c_str());
+        PyObject* args = PyTuple_New(1);
+        PyTuple_SetItem(args, 0, pystr);
+
+        PyObject* res = PyObject_CallObject(detail::_interpreter::get().s_python_function_yscale, args);
+        if(!res) throw std::runtime_error("Call to yscale() failed.");
+
+        Py_DECREF(args);
+        Py_DECREF(res);
+    }
 
 inline void grid(bool flag)
 {

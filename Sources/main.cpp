@@ -100,40 +100,6 @@ int main() {
         plt::title("Neutron star");
 
         constexpr uint_t N_STEPS = 200000;
-//         const real_t rhoI = 5e16;
-        const real_t rhoI = 1e21;
-
-        HRTimer timer("Neutron star");
-        timer.start();
-
-//        auto data = ns::integrate(rhoI, 100000, N_STEPS, ns::nnInteractionStructure(400*1e6*C_EV, 0.2));
-//        uint_t dataSetSize = data.first.size();
-//
-//        timer.stop();
-//        timer.report();
-//
-//        plt::plot(data.first, data.second[0]);
-
-        for(int ii = 200; ii <= 400; ii += 25) {
-            auto data = Utils::table(0, 20, 100000, ns::eNuc(ii * 1e6 * C_EV, 0.2, F, dF, d2F));
-            timer.pause();
-
-            plt::named_plot(format("K0 = %d MeV", ii), data.first, data.second);
-        }
-        timer.stop();
-        timer.report();
-
-        plt::legend();
-        plt::save("E_nuc.pdf");
-        plt::show();
-    }
-
-    plt::clf();
-
-    if(/* DISABLES CODE */ (false)) {
-        plt::title("Neutron star");
-
-        constexpr uint_t N_STEPS = 200000;
         constexpr uint_t N_STARS = 6;
         HRTimer timer("Neutron star");
 
@@ -384,7 +350,7 @@ int main() {
 
     plt::clf();
 
-    if(/* DISABLES CODE */ (true)) {
+    if(/* DISABLES CODE */ (false)) {
 //        const std::string pref = "nw";
 //        const std::string pref = "gr";
         const std::string pref = "nn";
@@ -562,4 +528,55 @@ int main() {
 //
 //        std::cout << A__ << std::endl;
 //    }
+
+    plt::clf();
+
+    if(/* DISABLES CODE */ (true)) {
+//        const std::string pref = "nw";
+//        const std::string pref = "gr";
+        const std::string pref = "nn";
+
+        constexpr uint_t N_STEPS = 200000;
+        constexpr real_t MIN_RHO = 0.01;
+//        constexpr real_t MAX_RHO = 5e20;
+        constexpr real_t MAX_RHO = 1e18;
+
+        plt::title("EOS (varying K0)");
+
+        HRTimer timer("EOS (varying K0)");
+
+        for(int jj = 100; jj <= 400; jj += 75) {
+            rmdata_t tab(N_STEPS, 4);
+
+            timer.start();
+
+            auto eos = ns::eNuc(jj * 1e6 * C_EV, 0.3, F, dF, d2F);
+
+#pragma omp parallel for
+            for(uint32_t ii = 0; ii < N_STEPS; ii++) {
+                real_t rho = MIN_RHO * std::pow(10, ii * (std::log10(MAX_RHO / MIN_RHO)) / N_STEPS);
+                auto point = eos(rho);
+
+                tab(ii, 0) = point[0];      // u
+                tab(ii, 1) = point[1]/C_EV; // epsilon/n
+                tab(ii, 2) = point[2]/C_EV; // epsilon
+                tab(ii, 3) = point[3];      // p
+            }
+
+            timer.pause();
+
+            plt::named_plot(format("K0 = %d MeV", jj), tab.col(0), tab.col(1));
+
+            std::ofstream(format("eos_(C1_0.3)_k0_%d.dat", jj)) << tab;
+        }
+
+        timer.stop();
+        timer.report();
+
+//        plt::xscale("log");
+        plt::xlabel("u");
+        plt::ylabel("epsilon/n (eV)");
+        plt::legend();
+        plt::save(pref + "_eos.pdf");
+    }
 }
