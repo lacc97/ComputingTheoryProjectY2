@@ -539,7 +539,7 @@ int main() {
         constexpr uint_t N_STEPS = 200000;
         constexpr real_t MIN_RHO = 0.01;
 //        constexpr real_t MAX_RHO = 5e20;
-        constexpr real_t MAX_RHO = 1e18;
+        constexpr real_t MAX_RHO = 3e18;
 
         plt::title("EOS (varying K0)");
 
