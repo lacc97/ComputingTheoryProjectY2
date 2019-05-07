@@ -33,19 +33,14 @@
 \end{frame}
 
 \begin{frame}
- \frametitle{Structure equations}
- Newtonian structure equation is
- \begin{align*}
-  \dv{p}{r}&=-\frac{G\rho M}{r^{2}}\\
-  \dv{M}{r}&=4\pi r^{2}\rho.
- \end{align*}
- 
-General Relativistic structure equation (TOV equation) is
- \begin{align*}
-  \dv{p}{r}&=-\frac{G\rho M}{r^{2}}\qty[1+\frac{p}{\epsilon}]\qty[1+\frac{4\pi r^{3}p}{Mc^{2}}]\qty[1-\frac{2GM}{c^{2}r}]^{-1}\\
-  \dv{M}{r}&=4\pi r^{2}\rho.
- \end{align*}
+    \frametitle{Structure equations}
+    \begin{itemize}
+        \item From hydrostatics, we get the Newtonian structure equation: \[\dv{p}{r}=-\frac{GM\rho}{r^{2}}\]
+        \item With general relativistic corrections, we get the TOV equation: \[\dv{p}{r}=-\frac{GM\rho}{r^{2}}\qty[1+\frac{p}{\epsilon}]\qty[1+\frac{4\pi r^{3}p}{Mc^{2}}]\qty[1-\frac{2GM}{c^{2}r}]^{-1}\]
+        \item From definition of the mass of a spherical shell: \[\dv{M}{r}=4\pi r^{2}\rho\]
+    \end{itemize}
 \end{frame}
+
 
 \begin{frame}
  \frametitle{Fermi gas model}
@@ -63,9 +58,11 @@ General Relativistic structure equation (TOV equation) is
 
 
 \begin{frame}
- \frametitle{Equation of state}
- Energy per particle is
-\[\frac{\epsilon}{n}=mc^{2}+E_{N}u^{2/3}+V(u)+E_{N}(2^{2/3}-1)\qty(u^{2/3}-F(u))+S_{0}F(u),\]
+ \frametitle{Fermi gas model with nucleon interaction}
+ We define the dimensionless quantity \[u\equiv\frac{n}{n_{S}}=\frac{x^{3}}{\eta}\] % where $n_{S}$ is the number density at saturation and $\eta=n_{S}/n_{0}$ is a ratio between constants.
+ 
+ Using the classical approximation for kinetic energy, the energy per particle is
+ \[\frac{\epsilon}{n}=mc^{2}+E_{N}u^{2/3}+V(u)+E_{N}(2^{2/3}-1)\qty(u^{2/3}-F(u))+S_{0}F(u),\]
  where the contribution from nuclear interaction is
  \[V(u)=\frac{A}{2}u+\frac{Bu^{\sigma}}{(1+\sigma)(1+C_{1}u^{\sigma-1})},\]
 \[x=\frac{\hbar k_{F}}{mc},\]
