@@ -116,8 +116,9 @@ namespace NeutronStar {
 
             const real_t A = -2 * B * (C1 + sigma) / ((1 + C1) * (1 + C1) * (1 + sigma)) - 4/3;
 
-//            std::cout << "A: " << A << "; B: " << B << "; sigma: " << sigma
-//                      << ";" << std::endl;
+            std::cout << "E_N: " << E_N << "; K_0: " << K0 << "; E_B: " << E_B << ";" << std::endl;
+            std::cout << "A: " << A << "; B: " << B << "; sigma: " << sigma
+                      << "; mc^2: " << (SI::C_NUCLEON_MASS*SI::C_C*SI::C_C) << std::endl;
 
             const real_t C_eta = (10 * std::cbrt(4 / (eta * eta)) / 9);
 
@@ -145,15 +146,15 @@ namespace NeutronStar {
                 const real_t Vp = A/2+(B*u_sigma*(C1*u_sigma + u*sigma))/((1+sigma)*u_plus_C1_u_sigma__2);
                 const real_t Vpp = -(B*u_sigma*(sigma-1)*(C1*u_sigma*(sigma-2)-u*sigma))/((sigma + 1)*u_plus_C1_u_sigma__2*u_plus_C1_u_sigma);
 
-                const real_t tJ1 = 2*cbrt_1_u/3 + Vp + ((cbrt_2_2 - 1)*(2*cbrt_1_u/3 - dFu)+S0*dFu/E_N);
+                const real_t tJ1 = 2*cbrt_1_u/3 + Vp /*+ ((cbrt_2_2 - 1)*(2*cbrt_1_u/3 - dFu)+S0*dFu/E_N)*/;
                 const real_t J = u_2*tJ1;
-                const real_t Jp = 2*u*tJ1 + u_2*(-2*cbrt_1_u_4/9 + Vpp + ((cbrt_2_2 - 1)*(-2*cbrt_1_u_4/9 - d2Fu)+S0*d2Fu/E_N));
+                const real_t Jp = 2*u*tJ1 + u_2*(-2*cbrt_1_u_4/9 + Vpp /*+ ((cbrt_2_2 - 1)*(-2*cbrt_1_u_4/9 - d2Fu)+S0*d2Fu/E_N)*/);
 
-                const real_t epsilon_n = (1+cbrt_u_2+V+((cbrt_2_2 - 1)*(cbrt_u_2 - Fu)+S0*Fu/E_N));
+                const real_t epsilon_n = (1+cbrt_u_2+V/*+((cbrt_2_2 - 1)*(cbrt_u_2 - Fu)+S0*Fu/E_N)*/);
                 const real_t epsilon = x_3*epsilon_n;
                 const real_t P = 3*std::cbrt(std::pow(eta, 5)/4)*J/10;
 
-                return {u, SI::C_NUCLEON_MASS*SI::C_C*SI::C_C*epsilon_n, epsilon0*epsilon, epsilon0*P};
+                return {u, SI::C_NUCLEON_MASS*SI::C_C*SI::C_C*(epsilon_n-1), epsilon0*epsilon, epsilon0*P};
             };
         }
 

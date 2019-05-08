@@ -9,8 +9,10 @@
 \usepackage{physics}
 \usepackage{caption}
 % \captionsetup{font=scriptsize,labelfont=scriptsize}
+\usepackage{booktabs}
 
 \usepackage{siunitx}
+\DeclareSIUnit\solarmass{M_{\odot}}
 
 \begin{document}
 
@@ -76,7 +78,7 @@
         \item The parameters of $V(u)$ are fitted to the properties of nuclear matter at saturation density:
             \begin{align*}
                 \qty(\dv{u}\qty[\frac{\epsilon(n)}{n}])_{u=1}&=0,&\frac{\epsilon(n_{1})}{n_{1}}-mc^{2}&=E_{B},\\
-                K(n_{1})=9\dv{p}{n}&=K_{0},&\qty(\frac{c_{s}}{c})^{2}=\pdv{p}{\epsilon}&<1
+                K(n_{1})=9\dv{p}{n}&=K_{0},&\qty(\frac{c_{s}}{c})^{2}=\dv{p}{\epsilon}&<1
             \end{align*}
     \end{itemize}
 \end{frame}
@@ -85,6 +87,31 @@
     \frametitle{Fermi gas model with nucleon interaction}
     \begin{itemize}
         \item Choosing \[F(u)=\sqrt{u},\] we can write the pressure for pure neutron matter ($\alpha=1$): \[p=E_{N}n_{1}J(u),\] where \[\resizebox{.8\textwidth}{!}{$\displaystyle J(u)\equiv u^{2}\qty[\frac{2}{3}u^{-1/3}+\frac{V'(u)}{E_{N}}+(2^{2/3}-1)\qty(\frac{2}{3}u^{-1/3}-F'(u))+\frac{S_{0}}{E_{N}}F'(u)]$}.\]
+        \item We also choose $C_{1}=0.3$ as in Prakash, Aisnworth and Lattimer (1988) and we considered different values of $K_{0}$ between \SI{100}{\mega\electronvolt} and \SI{400}{\mega\electronvolt}.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{TOV equation in terms of density}
+    \begin{itemize}
+        \item Given the difficulty of explicitly writing $\rho$ in terms of $p$, we instead write the TOV equation in terms of $\rho$: \[\dv{\rho}{r}=-\qty(\dv{p}{\rho})^{-1}\frac{G\rho M}{r^{2}}\qty[1+\frac{p}{\epsilon}]\qty[1+\frac{4\pi r^{3}p}{Mc^{2}}]\qty[1-\frac{2GM}{c^{2}r}]^{-1}\]
+        \item The derivative $\dv{p}{\rho}$ can be calculated relatively easily by applying the chain rule with respect to $x$.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Dimensionless equations for Fermi gas model}
+    \begin{itemize}
+        \item To minimize floating point errors, we use dimensionless quantities:
+            \begin{align*}
+                \bar{r}&=\frac{r}{r_{0}},&\bar{M}&=\frac{M}{M_{0}},\\
+                \bar{\rho}&=\frac{\rho}{\rho_{0}},&\bar{p}&=\frac{p}{\epsilon_{0}},\\
+                \bar{\epsilon}&=\frac{\epsilon}{\epsilon_{0}}.
+            \end{align*}
+        \item Similarly, the equations have to be written in terms of the dimensionless quantities:
+            \begin{align*}
+                \dv{\bar{p}}{\bar{r}}=
+            \end{align*}
     \end{itemize}
 \end{frame}
 
@@ -100,6 +127,25 @@
      \item From these, the error on $Y_{2}$ at step size $h_{2}=h$ is \[E_{2}=(Y_{1}-Y_{2})/15.\]
     \end{itemize}
 \end{frame}
+
+\begin{frame}
+    \frametitle{Maximum masses and radii}
+    \begin{table}[h]\begin{center}
+        \caption{Maximum masses and radii at maximum mass of neutron stars for a given nuclear incompressibility $K_0$}
+        \begin{tabular}{ccc}
+            \toprule
+            $K_{0}$ (\si{\mega\electronvolt}) & $M_{\text{max}}$ (\si{\solarmass}) & $R_{\text{max}}$ (\si{\kilo\meter}) \\
+            \midrule
+            \num{100} & \num{1.36} & \num{6.78}\\
+            \num{175} & \num{2.01} & \num{8.30}\\
+            \num{250} & \num{2.30} & \num{9.25}\\
+            \num{325} & \num{2.27} & \num{9.68}\\
+            \num{400} & \num{1.97} & \num{9.80}\\
+            \bottomrule
+        \end{tabular}
+    \end{center}\end{table}
+\end{frame}
+
 
 \begin{frame}
  \frametitle{Comparison between our models}
